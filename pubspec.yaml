@@ -30,7 +30,8 @@ dependencies:
   flutter:
     sdk: flutter
   cached_network_image:
-  cached_video_player:
+  flutter_cache_manager: ^3.3.0
+  video_player: ^2.4.7
 
 
   # The following adds the Cupertino Icons font to your application.

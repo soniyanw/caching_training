@@ -1,4 +1,4 @@
-import 'package:cached_video_player/cached_video_player.dart';
+import 'package:cache/views/videoplayer.dart';
 import 'package:flutter/material.dart';
 
 class VideoScreen extends StatefulWidget {
@@ -9,30 +9,27 @@ class VideoScreen extends StatefulWidget {
 }
 
 class _VideoScreenState extends State<VideoScreen> {
-  late CachedVideoPlayerController controller;
-  @override
-  void initState() {
-    controller = CachedVideoPlayerController.network(
-        "https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4");
-    controller.initialize().then((value) {
-      controller.play();
-      setState(() {});
-    });
-    super.initState();
-  }
+  List<String> videourls = [
+    'https://assets.mixkit.co/videos/preview/mixkit-a-girl-blowing-a-bubble-gum-at-an-amusement-park-1226-large.mp4',
+    'https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4',
+    'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4'
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-          child: controller.value.isInitialized
-              ? AspectRatio(
-                  aspectRatio: controller.value.aspectRatio,
-                  child: CachedVideoPlayer(controller))
-              : const CircularProgressIndicator()), // This trailing comma makes auto-formatting nicer for build methods.
-    );
+        body: PageView.builder(
+            scrollDirection: Axis.vertical,
+            itemCount: 3,
+            itemBuilder: (BuildContext context, int index) {
+              return Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Container(
+                      width: double.maxFinite,
+                      height: MediaQuery.of(context).size.height,
+                      child: Player(
+                        url: videourls[index],
+                      )));
+            }));
   }
 }
-git remote add origin https://github.com/soniyanw/caching_training.git
-git branch -M main
-git push -u origin main
